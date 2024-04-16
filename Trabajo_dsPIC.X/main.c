@@ -1,7 +1,7 @@
+
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/LCDMiniDrivers/lcd.h"
-#include "mcc_generated_files/adc1.h"
 #include "Func.h"
 
 #define ROW_LEN 16
@@ -15,10 +15,12 @@ uint8_t* Prow1 = &row1_disp;
 char fila0[ROW_LEN];
 char fila1[ROW_LEN];
 
-int conversion,i=0,cuenta=0;
-float Volt=0.0;
+int cuenta=0;
 
-void DutyNumero(int cuenta) {
+void __attribute__ ((weak)) DUTY_CallBack(void)
+{
+    LED1_Toggle(); // Toggle LED
+    cuenta++; // Incrementa cuenta
     switch(cuenta) {
         case 1:
             PG2DC += (uint16_t)(0.1 * (65536 - 1)); // Incrementa 0.1 del rango del registro
@@ -34,21 +36,12 @@ void DutyNumero(int cuenta) {
             break;
         case 5:
             PG2DC = (uint16_t)(0.5 * (65536 - 1)); // Reinicia a 0.5 del rango del registro
+            cuenta = 1; // Reinicia cuenta a 1
             break;
         default:
             // Manejo de otros casos
             break;
     }
-}
-
-void __attribute__ ((weak)) DUTY_CallBack(void)
-{
-    LED1_Toggle();
-    cuenta++;
-    DutyNumero(cuenta);
-    IFS4bits.CNEIF = 0;
-    CNFEbits.CNFE8 = 0;
-    // PG2DC = valor asignado en DutyNumero(); // Asigna el valor calculado en DutyNumero()
 }
 
 int main(void)
@@ -74,3 +67,5 @@ int main(void)
     
 
 }
+
+
