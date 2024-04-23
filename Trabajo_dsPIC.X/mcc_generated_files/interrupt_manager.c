@@ -52,9 +52,6 @@
 */
 void INTERRUPT_Initialize (void)
 {
-    //    PWM2I: PWM Generator 2
-    //    Priority: 1
-        IPC17bits.PWM2IP = 1;
     //    CNEI: Change Notification E
     //    Priority: 6
         IPC19bits.CNEIP = 6;

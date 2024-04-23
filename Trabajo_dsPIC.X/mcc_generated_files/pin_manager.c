@@ -147,6 +147,12 @@ void PIN_MANAGER_Initialize (void)
     IFS4bits.CNEIF = 0; //Clear CNEI interrupt flag
     IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
+/*
+void __attribute__ ((weak)) DUTY_CallBack(void)
+{
+
+}
+ */
 
 void DUTY_SetInterruptHandler(void (* InterruptHandler)(void))
 { 

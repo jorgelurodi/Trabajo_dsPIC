@@ -52,9 +52,6 @@
  Section: Driver Interface Function Definitions
 */
 
-// PWM Default PWM Generator Interrupt Handler
-static void (*PWM_Generator2InterruptHandler)(void) = NULL;
-
 void PWM_Initialize (void)
 {
     // MCLKSEL FOSC - System Clock; HRERR disabled; LOCK disabled; DIVSEL 1:2; 
@@ -105,8 +102,8 @@ void PWM_Initialize (void)
     PG2STAT = 0x00;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
     PG2IOCONL = 0x00;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Complementary; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
-    PG2IOCONH = 0x0C;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    PG2IOCONH = 0x1C;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
     PG2EVTL = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
@@ -150,13 +147,6 @@ void PWM_Initialize (void)
     // DTH 0; 
     PG2DTH = 0x00;
     
-    /* Initialize PWM Generator Interrupt Handler*/
-    PWM_SetGenerator2InterruptHandler(&PWM_Generator2_CallBack);
-    
-    //PWM Generator 2 Interrupt
-    IFS4bits.PWM2IF = 0;
-    IEC4bits.PWM2IE = 1;
-    
 
     // HREN disabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled; 
     PG2CONL = 0x8008;
@@ -165,25 +155,18 @@ void PWM_Initialize (void)
 void __attribute__ ((weak)) PWM_Generator2_CallBack(void)
 {
     // Add Application code here
-    
-    
 }
 
-void PWM_SetGenerator2InterruptHandler(void *handler)
+void PWM_Generator2_Tasks(void)
 {
-    PWM_Generator2InterruptHandler = handler;
-}
-
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _PWM2Interrupt (  )
-{
-    if(PWM_Generator2InterruptHandler)
+    if(IFS4bits.PWM2IF)
     {
-        // PWM Generator2 interrupt handler function
-        PWM_Generator2InterruptHandler();
+        // PWM Generator2 callback function 
+        PWM_Generator2_CallBack();
+
+        // clear the PWM Generator2 interrupt flag
+        IFS4bits.PWM2IF = 0;
     }
-    
-    // clear the PWM Generator2 interrupt flag
-    IFS4bits.PWM2IF = 0; 
 }
 
 

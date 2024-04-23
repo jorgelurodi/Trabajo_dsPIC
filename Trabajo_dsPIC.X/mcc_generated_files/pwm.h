@@ -1227,24 +1227,23 @@ void PWM_Generator2_CallBack(void);
 
 /**
   @Summary
-    Assigns a function pointer with a PWM Generator2 callback address.
+    Tasks routine for PWM2.
 
   @Description
-    This routine assigns a function pointer with a PWM Generator2 
-    callback address.
+    This is a tasks routine for PWM2.
 
   @Param
-    Address of the callback routine.
+    None.
 
   @Returns
-    None
+    None.
  
   @Example 
-    <code>
-    PWM_SetGenerator2InterruptHandler(&PWM_Generator2_CallBack);
+    <code>    
+    PWM_Generator2_Tasks();
     </code>
 */
-void PWM_SetGenerator2InterruptHandler(void *handler);
+void PWM_Generator2_Tasks(void);
 
 
 /**

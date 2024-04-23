@@ -67,10 +67,10 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.foundationservices.library.FoundationServicesLibrary" version="0.2.3"/>
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary" version="1.12.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.mcu16.Mcu16PeripheralLibrary" version="1.171.1"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary" version="1.12.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.mikroEClickLibrary.MikroEClickLibrary" version="1.1.3"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.foundationservices.library.FoundationServicesLibrary" version="0.2.3"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -4283,7 +4283,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDutyCycle"/>
-         <value>50</value>
+         <value>50.00</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorEnable"/>
@@ -4291,7 +4291,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorFreq"/>
-         <value>737</value>
+         <value>736.98756333486872409028097650852141870105941962229387379087977890373099953938277291570704744357438968217411331183786273606632888071</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorFreqRangeMax"/>
@@ -4311,7 +4311,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorOutputMode"/>
-         <value>Complementary</value>
+         <value>Independent</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorOverrideHigh"/>
@@ -14747,7 +14747,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG2IOCONH"/>
-         <value>12</value>
+         <value>28</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG2IOCONL"/>
@@ -16263,7 +16263,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG2IOCONH" settingAlias="PMOD"/>
-         <value>Complementary</value>
+         <value>Independent</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG2IOCONH" settingAlias="POLH"/>
@@ -17619,7 +17619,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PWM2I" settingAlias="enable"/>
-         <value>enabled</value>
+         <value>disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PWM2I" settingAlias="flag"/>
@@ -29435,11 +29435,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPIMASTER" name="pubSubSPIMASTERConfigurations"/>
-         <value>9802.747709975674</value>
+         <value>7839.804683981021</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPIMASTER" name="pubSubspiSubscriber"/>
-         <value>1302.2040873260898</value>
+         <value>4069.0035272031278</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPIMASTER" name="spiSubscriber"/>
@@ -29451,7 +29451,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPIMASTER" name="validate"/>
-         <value>0.0495033947974266</value>
+         <value>0.29655114354377987</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.PropertyTokenKey" moduleName="SPIMASTER" name="spiConfigurations%0%dataInputSample"/>
@@ -31325,7 +31325,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files/interrupt_manager.c</file>
-         <hash>42c59dcad21ae77146d975adb0070de40e7fa53c3a73f2d36158071fe4639ccb</hash>
+         <hash>1662cc9a8c41699a557404b6c89dd31bf8549aa2a97135787c137790a9f330df</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/interrupt_manager.h</file>
@@ -31345,7 +31345,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files/mcc.h</file>
-         <hash>b507367397155380c5e7f580f25a9cf0b6313c485451642e5618a7a5a3cac6a4</hash>
+         <hash>54054f2ef3ebc12405cd0a64ec443ea0cbb7fd8fda017f4dbb894011b364cb7e</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/pin_manager.c</file>
@@ -31357,11 +31357,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files/pwm.c</file>
-         <hash>fb9eacecfb6626c702ea11e1d8536710c5a24e93c7ed6075b4bdb71118221d5f</hash>
+         <hash>46e0e5c1064d1bfd92078128a0fa529d03ff9a18f48f51b654aaa2f01b2f3778</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/pwm.h</file>
-         <hash>c5e03199f5dc77318bda859992a3d7d1be96517b139c65101e49eaf2806f81e8</hash>
+         <hash>91630bc098a10adbbae9c3ca33e397345f45c028f68bbbe097535217d1930aa0</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/pwm_module_features.h</file>
@@ -31393,7 +31393,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files/system.c</file>
-         <hash>8d055c21f0fe4a89a695a4237a7959d91c3d23c93c89518b8be12f32820c53a1</hash>
+         <hash>8d6d68ef75c1ab85afbd6c866328b2d867fb1ba7853ec5db90dbdfd84c06762a</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/system.h</file>
