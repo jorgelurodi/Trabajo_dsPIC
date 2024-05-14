@@ -2,14 +2,14 @@
 
 manifest_file_version: 1.0.0
 project: Trabajo_dsPIC
-creation_date: 2024-04-22T14:15:40.973+02:00[Europe/Madrid]
-operating_system: Mac OS X
+creation_date: 2024-05-14T17:36:56.161+02:00[Europe/Paris]
+operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
 device_name: dsPIC33CH512MP508
 compiler: XC16 2.10
-mcc_version: 5.5.0
-mcc_core_version: 5.7.0
+mcc_version: 5.5.1
+mcc_core_version: 5.7.1
 content_manager_version: 5.0.0
 is_mcc_offline: false
 is_using_prerelease_versions: false
@@ -18,9 +18,9 @@ device_library: {library_class: com.microchip.mcc.mcu16.Mcu16PeripheralLibrary, 
     / dsPIC33 / PIC32MM MCUs, version: 1.171.1}
 packs: {name: dsPIC33CH-MP_DFP, version: 1.15.378}
 modules:
-- {name: com.microchip.mcc.mcu16.Mcu16PeripheralLibrary, type: CLASSIC, version: 1.171.1}
-- {name: com.microchip.mcc.mikroEClickLibrary.MikroEClickLibrary, type: CLASSIC, version: 1.1.3}
 - {name: com.microchip.mcc.foundationservices.library.FoundationServicesLibrary, type: CLASSIC,
   version: 0.2.3}
+- {name: com.microchip.mcc.mcu16.Mcu16PeripheralLibrary, type: CLASSIC, version: 1.171.1}
+- {name: com.microchip.mcc.mikroEClickLibrary.MikroEClickLibrary, type: CLASSIC, version: 1.1.3}
 - {name: com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary, type: CLASSIC,
   version: 1.12.0}

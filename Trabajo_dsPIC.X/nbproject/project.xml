@@ -4,8 +4,17 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Trabajo_dsPIC</name>
-            <creation-uuid>6a72ea0d-d6cf-4a12-ac8f-f7f7823b2a05</creation-uuid>
+            <name>CCP_PWM</name>
+            <name>ADC_CCP_PWM</name>
+            <name>ADC_CCP</name>
+            <name>ADC</name>
+            <name>CuriosityBase</name>
+            <creation-uuid>f977d8e9-8cbe-47ce-845a-f2f8e00a0730</creation-uuid>
             <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>

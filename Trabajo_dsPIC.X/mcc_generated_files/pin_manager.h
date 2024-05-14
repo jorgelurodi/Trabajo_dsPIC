@@ -56,6 +56,298 @@
 */
 /**
   @Summary
+    Sets the GPIO pin, RA0, high using LATA0.
+
+  @Description
+    Sets the GPIO pin, RA0, high using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA0 high (1)
+    triangular_SetHigh();
+    </code>
+
+*/
+#define triangular_SetHigh()          (_LATA0 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RA0, low using LATA0.
+
+  @Description
+    Sets the GPIO pin, RA0, low using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA0 low (0)
+    triangular_SetLow();
+    </code>
+
+*/
+#define triangular_SetLow()           (_LATA0 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RA0, using LATA0.
+
+  @Description
+    Toggles the GPIO pin, RA0, using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA0
+    triangular_Toggle();
+    </code>
+
+*/
+#define triangular_Toggle()           (_LATA0 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA0.
+
+  @Description
+    Reads the value of the GPIO pin, RA0.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA0
+    postValue = triangular_GetValue();
+    </code>
+
+*/
+#define triangular_GetValue()         _RA0
+/**
+  @Summary
+    Configures the GPIO pin, RA0, as an input.
+
+  @Description
+    Configures the GPIO pin, RA0, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA0 as an input
+    triangular_SetDigitalInput();
+    </code>
+
+*/
+#define triangular_SetDigitalInput()  (_TRISA0 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RA0, as an output.
+
+  @Description
+    Configures the GPIO pin, RA0, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA0 as an output
+    triangular_SetDigitalOutput();
+    </code>
+
+*/
+#define triangular_SetDigitalOutput() (_TRISA0 = 0)
+/**
+  @Summary
+    Sets the GPIO pin, RA1, high using LATA1.
+
+  @Description
+    Sets the GPIO pin, RA1, high using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA1 high (1)
+    senoidal_SetHigh();
+    </code>
+
+*/
+#define senoidal_SetHigh()          (_LATA1 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RA1, low using LATA1.
+
+  @Description
+    Sets the GPIO pin, RA1, low using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA1 low (0)
+    senoidal_SetLow();
+    </code>
+
+*/
+#define senoidal_SetLow()           (_LATA1 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RA1, using LATA1.
+
+  @Description
+    Toggles the GPIO pin, RA1, using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA1
+    senoidal_Toggle();
+    </code>
+
+*/
+#define senoidal_Toggle()           (_LATA1 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA1.
+
+  @Description
+    Reads the value of the GPIO pin, RA1.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA1
+    postValue = senoidal_GetValue();
+    </code>
+
+*/
+#define senoidal_GetValue()         _RA1
+/**
+  @Summary
+    Configures the GPIO pin, RA1, as an input.
+
+  @Description
+    Configures the GPIO pin, RA1, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA1 as an input
+    senoidal_SetDigitalInput();
+    </code>
+
+*/
+#define senoidal_SetDigitalInput()  (_TRISA1 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RA1, as an output.
+
+  @Description
+    Configures the GPIO pin, RA1, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA1 as an output
+    senoidal_SetDigitalOutput();
+    </code>
+
+*/
+#define senoidal_SetDigitalOutput() (_TRISA1 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RB10, high using LATB10.
 
   @Description
@@ -365,11 +657,11 @@
   @Example
     <code>
     // Set RC7 high (1)
-    LCDMini_nCS2_SetHigh();
+    LCDMini_nCS_SetHigh();
     </code>
 
 */
-#define LCDMini_nCS2_SetHigh()          (_LATC7 = 1)
+#define LCDMini_nCS_SetHigh()          (_LATC7 = 1)
 /**
   @Summary
     Sets the GPIO pin, RC7, low using LATC7.
@@ -389,11 +681,11 @@
   @Example
     <code>
     // Set RC7 low (0)
-    LCDMini_nCS2_SetLow();
+    LCDMini_nCS_SetLow();
     </code>
 
 */
-#define LCDMini_nCS2_SetLow()           (_LATC7 = 0)
+#define LCDMini_nCS_SetLow()           (_LATC7 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RC7, using LATC7.
@@ -413,11 +705,11 @@
   @Example
     <code>
     // Toggle RC7
-    LCDMini_nCS2_Toggle();
+    LCDMini_nCS_Toggle();
     </code>
 
 */
-#define LCDMini_nCS2_Toggle()           (_LATC7 ^= 1)
+#define LCDMini_nCS_Toggle()           (_LATC7 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RC7.
@@ -439,11 +731,11 @@
     uint16_t portValue;
 
     // Read RC7
-    postValue = LCDMini_nCS2_GetValue();
+    postValue = LCDMini_nCS_GetValue();
     </code>
 
 */
-#define LCDMini_nCS2_GetValue()         _RC7
+#define LCDMini_nCS_GetValue()         _RC7
 /**
   @Summary
     Configures the GPIO pin, RC7, as an input.
@@ -463,11 +755,11 @@
   @Example
     <code>
     // Sets the RC7 as an input
-    LCDMini_nCS2_SetDigitalInput();
+    LCDMini_nCS_SetDigitalInput();
     </code>
 
 */
-#define LCDMini_nCS2_SetDigitalInput()  (_TRISC7 = 1)
+#define LCDMini_nCS_SetDigitalInput()  (_TRISC7 = 1)
 /**
   @Summary
     Configures the GPIO pin, RC7, as an output.
@@ -487,11 +779,11 @@
   @Example
     <code>
     // Sets the RC7 as an output
-    LCDMini_nCS2_SetDigitalOutput();
+    LCDMini_nCS_SetDigitalOutput();
     </code>
 
 */
-#define LCDMini_nCS2_SetDigitalOutput() (_TRISC7 = 0)
+#define LCDMini_nCS_SetDigitalOutput() (_TRISC7 = 0)
 /**
   @Summary
     Sets the GPIO pin, RD3, high using LATD3.
@@ -511,11 +803,11 @@
   @Example
     <code>
     // Set RD3 high (1)
-    LCDMini_nCS_SetHigh();
+    LCDMini_nCS2_SetHigh();
     </code>
 
 */
-#define LCDMini_nCS_SetHigh()          (_LATD3 = 1)
+#define LCDMini_nCS2_SetHigh()          (_LATD3 = 1)
 /**
   @Summary
     Sets the GPIO pin, RD3, low using LATD3.
@@ -535,11 +827,11 @@
   @Example
     <code>
     // Set RD3 low (0)
-    LCDMini_nCS_SetLow();
+    LCDMini_nCS2_SetLow();
     </code>
 
 */
-#define LCDMini_nCS_SetLow()           (_LATD3 = 0)
+#define LCDMini_nCS2_SetLow()           (_LATD3 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RD3, using LATD3.
@@ -559,11 +851,11 @@
   @Example
     <code>
     // Toggle RD3
-    LCDMini_nCS_Toggle();
+    LCDMini_nCS2_Toggle();
     </code>
 
 */
-#define LCDMini_nCS_Toggle()           (_LATD3 ^= 1)
+#define LCDMini_nCS2_Toggle()           (_LATD3 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RD3.
@@ -585,11 +877,11 @@
     uint16_t portValue;
 
     // Read RD3
-    postValue = LCDMini_nCS_GetValue();
+    postValue = LCDMini_nCS2_GetValue();
     </code>
 
 */
-#define LCDMini_nCS_GetValue()         _RD3
+#define LCDMini_nCS2_GetValue()         _RD3
 /**
   @Summary
     Configures the GPIO pin, RD3, as an input.
@@ -609,11 +901,11 @@
   @Example
     <code>
     // Sets the RD3 as an input
-    LCDMini_nCS_SetDigitalInput();
+    LCDMini_nCS2_SetDigitalInput();
     </code>
 
 */
-#define LCDMini_nCS_SetDigitalInput()  (_TRISD3 = 1)
+#define LCDMini_nCS2_SetDigitalInput()  (_TRISD3 = 1)
 /**
   @Summary
     Configures the GPIO pin, RD3, as an output.
@@ -633,11 +925,11 @@
   @Example
     <code>
     // Sets the RD3 as an output
-    LCDMini_nCS_SetDigitalOutput();
+    LCDMini_nCS2_SetDigitalOutput();
     </code>
 
 */
-#define LCDMini_nCS_SetDigitalOutput() (_TRISD3 = 0)
+#define LCDMini_nCS2_SetDigitalOutput() (_TRISD3 = 0)
 /**
   @Summary
     Sets the GPIO pin, RD4, high using LATD4.
@@ -657,11 +949,11 @@
   @Example
     <code>
     // Set RD4 high (1)
-    LCDMini_nReset_SetHigh();
+    LCDMini_nRESET_SetHigh();
     </code>
 
 */
-#define LCDMini_nReset_SetHigh()          (_LATD4 = 1)
+#define LCDMini_nRESET_SetHigh()          (_LATD4 = 1)
 /**
   @Summary
     Sets the GPIO pin, RD4, low using LATD4.
@@ -681,11 +973,11 @@
   @Example
     <code>
     // Set RD4 low (0)
-    LCDMini_nReset_SetLow();
+    LCDMini_nRESET_SetLow();
     </code>
 
 */
-#define LCDMini_nReset_SetLow()           (_LATD4 = 0)
+#define LCDMini_nRESET_SetLow()           (_LATD4 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RD4, using LATD4.
@@ -705,11 +997,11 @@
   @Example
     <code>
     // Toggle RD4
-    LCDMini_nReset_Toggle();
+    LCDMini_nRESET_Toggle();
     </code>
 
 */
-#define LCDMini_nReset_Toggle()           (_LATD4 ^= 1)
+#define LCDMini_nRESET_Toggle()           (_LATD4 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RD4.
@@ -731,11 +1023,11 @@
     uint16_t portValue;
 
     // Read RD4
-    postValue = LCDMini_nReset_GetValue();
+    postValue = LCDMini_nRESET_GetValue();
     </code>
 
 */
-#define LCDMini_nReset_GetValue()         _RD4
+#define LCDMini_nRESET_GetValue()         _RD4
 /**
   @Summary
     Configures the GPIO pin, RD4, as an input.
@@ -755,11 +1047,11 @@
   @Example
     <code>
     // Sets the RD4 as an input
-    LCDMini_nReset_SetDigitalInput();
+    LCDMini_nRESET_SetDigitalInput();
     </code>
 
 */
-#define LCDMini_nReset_SetDigitalInput()  (_TRISD4 = 1)
+#define LCDMini_nRESET_SetDigitalInput()  (_TRISD4 = 1)
 /**
   @Summary
     Configures the GPIO pin, RD4, as an output.
@@ -779,11 +1071,11 @@
   @Example
     <code>
     // Sets the RD4 as an output
-    LCDMini_nReset_SetDigitalOutput();
+    LCDMini_nRESET_SetDigitalOutput();
     </code>
 
 */
-#define LCDMini_nReset_SetDigitalOutput() (_TRISD4 = 0)
+#define LCDMini_nRESET_SetDigitalOutput() (_TRISD4 = 0)
 /**
   @Summary
     Sets the GPIO pin, RD6, high using LATD6.
@@ -1078,6 +1370,298 @@
 #define LED1_SetDigitalOutput() (_TRISE0 = 0)
 /**
   @Summary
+    Sets the GPIO pin, RE7, high using LATE7.
+
+  @Description
+    Sets the GPIO pin, RE7, high using LATE7.
+
+  @Preconditions
+    The RE7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE7 high (1)
+    SENAL1_SetHigh();
+    </code>
+
+*/
+#define SENAL1_SetHigh()          (_LATE7 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RE7, low using LATE7.
+
+  @Description
+    Sets the GPIO pin, RE7, low using LATE7.
+
+  @Preconditions
+    The RE7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE7 low (0)
+    SENAL1_SetLow();
+    </code>
+
+*/
+#define SENAL1_SetLow()           (_LATE7 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RE7, using LATE7.
+
+  @Description
+    Toggles the GPIO pin, RE7, using LATE7.
+
+  @Preconditions
+    The RE7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RE7
+    SENAL1_Toggle();
+    </code>
+
+*/
+#define SENAL1_Toggle()           (_LATE7 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RE7.
+
+  @Description
+    Reads the value of the GPIO pin, RE7.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RE7
+    postValue = SENAL1_GetValue();
+    </code>
+
+*/
+#define SENAL1_GetValue()         _RE7
+/**
+  @Summary
+    Configures the GPIO pin, RE7, as an input.
+
+  @Description
+    Configures the GPIO pin, RE7, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE7 as an input
+    SENAL1_SetDigitalInput();
+    </code>
+
+*/
+#define SENAL1_SetDigitalInput()  (_TRISE7 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RE7, as an output.
+
+  @Description
+    Configures the GPIO pin, RE7, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE7 as an output
+    SENAL1_SetDigitalOutput();
+    </code>
+
+*/
+#define SENAL1_SetDigitalOutput() (_TRISE7 = 0)
+/**
+  @Summary
+    Sets the GPIO pin, RE8, high using LATE8.
+
+  @Description
+    Sets the GPIO pin, RE8, high using LATE8.
+
+  @Preconditions
+    The RE8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE8 high (1)
+    SENAL2_SetHigh();
+    </code>
+
+*/
+#define SENAL2_SetHigh()          (_LATE8 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RE8, low using LATE8.
+
+  @Description
+    Sets the GPIO pin, RE8, low using LATE8.
+
+  @Preconditions
+    The RE8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RE8 low (0)
+    SENAL2_SetLow();
+    </code>
+
+*/
+#define SENAL2_SetLow()           (_LATE8 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RE8, using LATE8.
+
+  @Description
+    Toggles the GPIO pin, RE8, using LATE8.
+
+  @Preconditions
+    The RE8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RE8
+    SENAL2_Toggle();
+    </code>
+
+*/
+#define SENAL2_Toggle()           (_LATE8 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RE8.
+
+  @Description
+    Reads the value of the GPIO pin, RE8.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RE8
+    postValue = SENAL2_GetValue();
+    </code>
+
+*/
+#define SENAL2_GetValue()         _RE8
+/**
+  @Summary
+    Configures the GPIO pin, RE8, as an input.
+
+  @Description
+    Configures the GPIO pin, RE8, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE8 as an input
+    SENAL2_SetDigitalInput();
+    </code>
+
+*/
+#define SENAL2_SetDigitalInput()  (_TRISE8 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RE8, as an output.
+
+  @Description
+    Configures the GPIO pin, RE8, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RE8 as an output
+    SENAL2_SetDigitalOutput();
+    </code>
+
+*/
+#define SENAL2_SetDigitalOutput() (_TRISE8 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RE9, high using LATE9.
 
   @Description
@@ -1259,6 +1843,27 @@ void PIN_MANAGER_Initialize (void);
 
 /**
   @Summary
+    Callback for SENAL1 Pin.
+
+  @Description
+    This routine is callback for SENAL1 Pin
+
+  @Param
+    None.
+
+  @Returns
+    None
+ 
+ 
+  @Example 
+    <code>
+        SENAL1_SetInterruptHandler(&SENAL1_CallBack);
+    </code>
+*/
+void SENAL1_CallBack(void);
+
+/**
+  @Summary
     Callback for DUTY Pin.
 
   @Description
@@ -1278,6 +1883,67 @@ void PIN_MANAGER_Initialize (void);
 */
 void DUTY_CallBack(void);
 
+/**
+  @Summary
+    Callback for SENAL2 Pin.
+
+  @Description
+    This routine is callback for SENAL2 Pin
+
+  @Param
+    None.
+
+  @Returns
+    None
+ 
+ 
+  @Example 
+    <code>
+        SENAL2_SetInterruptHandler(&SENAL2_CallBack);
+    </code>
+*/
+void SENAL2_CallBack(void);
+
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        SENAL1_SetInterruptHandler(&SENAL1_CallBack);
+    </code>
+*/
+void SENAL1_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        SENAL1_SetIOCInterruptHandler(&SENAL1_CallBack);
+    </code>
+*/
+void __attribute__((deprecated("\nThis will be removed in future MCC releases. \nUse SENAL1_SetInterruptHandler instead."))) SENAL1_SetIOCInterruptHandler(void *handler);
 
 /**
   @Summary
@@ -1318,6 +1984,46 @@ void DUTY_SetInterruptHandler(void (* InterruptHandler)(void));
     </code>
 */
 void __attribute__((deprecated("\nThis will be removed in future MCC releases. \nUse DUTY_SetInterruptHandler instead."))) DUTY_SetIOCInterruptHandler(void *handler);
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        SENAL2_SetInterruptHandler(&SENAL2_CallBack);
+    </code>
+*/
+void SENAL2_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        SENAL2_SetIOCInterruptHandler(&SENAL2_CallBack);
+    </code>
+*/
+void __attribute__((deprecated("\nThis will be removed in future MCC releases. \nUse SENAL2_SetInterruptHandler instead."))) SENAL2_SetIOCInterruptHandler(void *handler);
 
 
 #endif

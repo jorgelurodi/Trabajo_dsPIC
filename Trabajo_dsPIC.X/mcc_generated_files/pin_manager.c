@@ -56,7 +56,9 @@
 /**
  Section: File specific functions
 */
+void (*SENAL1_InterruptHandler)(void) = NULL;
 void (*DUTY_InterruptHandler)(void) = NULL;
+void (*SENAL2_InterruptHandler)(void) = NULL;
 
 /**
  Section: Driver Interface Function Definitions
@@ -86,9 +88,9 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     CNPDA = 0x0000;
     CNPDB = 0x0000;
-    CNPDC = 0x0000;
+    CNPDC = 0x0004;
     CNPDD = 0x0000;
-    CNPDE = 0x0100;
+    CNPDE = 0x0000;
     CNPUA = 0x0000;
     CNPUB = 0x0000;
     CNPUC = 0x0000;
@@ -118,8 +120,8 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_RPCON(0x0000); // unlock PPS
 
-    RPINR20bits.SDI1R = 0x0046;    //RD6->SPI1:SDI1
     RPOR5bits.RP42R = 0x0006;    //RB10->SPI1:SCK1
+    RPINR20bits.SDI1R = 0x0046;    //RD6->SPI1:SDI1
     RPOR9bits.RP51R = 0x0005;    //RC3->SPI1:SDO1
 
     __builtin_write_RPCON(0x0800); // lock PPS
@@ -127,10 +129,14 @@ void PIN_MANAGER_Initialize (void)
     /****************************************************************************
      * Interrupt On Change: negative
      ***************************************************************************/
+    CNEN1Ebits.CNEN1E7 = 1;    //Pin : RE7
+    CNEN1Ebits.CNEN1E8 = 1;    //Pin : RE8
     CNEN1Ebits.CNEN1E9 = 1;    //Pin : RE9
     /****************************************************************************
      * Interrupt On Change: flag
      ***************************************************************************/
+    CNFEbits.CNFE7 = 0;    //Pin : RE7
+    CNFEbits.CNFE8 = 0;    //Pin : RE8
     CNFEbits.CNFE9 = 0;    //Pin : RE9
     /****************************************************************************
      * Interrupt On Change: config
@@ -139,7 +145,9 @@ void PIN_MANAGER_Initialize (void)
     CNCONEbits.ON = 1;    //Config for PORTE
     
     /* Initialize IOC Interrupt Handler*/
+    SENAL1_SetInterruptHandler(&SENAL1_CallBack);
     DUTY_SetInterruptHandler(&DUTY_CallBack);
+    SENAL2_SetInterruptHandler(&SENAL2_CallBack);
     
     /****************************************************************************
      * Interrupt On Change: Interrupt Enable
@@ -147,12 +155,18 @@ void PIN_MANAGER_Initialize (void)
     IFS4bits.CNEIF = 0; //Clear CNEI interrupt flag
     IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
-/*
-void __attribute__ ((weak)) DUTY_CallBack(void)
-{
 
+void SENAL1_SetInterruptHandler(void (* InterruptHandler)(void))
+{ 
+    IEC4bits.CNEIE = 0; //Disable CNEI interrupt
+    SENAL1_InterruptHandler = InterruptHandler; 
+    IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
- */
+
+void SENAL1_SetIOCInterruptHandler(void *handler)
+{ 
+    SENAL1_SetInterruptHandler(handler);
+}
 
 void DUTY_SetInterruptHandler(void (* InterruptHandler)(void))
 { 
@@ -166,11 +180,34 @@ void DUTY_SetIOCInterruptHandler(void *handler)
     DUTY_SetInterruptHandler(handler);
 }
 
+void SENAL2_SetInterruptHandler(void (* InterruptHandler)(void))
+{ 
+    IEC4bits.CNEIE = 0; //Disable CNEI interrupt
+    SENAL2_InterruptHandler = InterruptHandler; 
+    IEC4bits.CNEIE = 1; //Enable CNEI interrupt
+}
+
+void SENAL2_SetIOCInterruptHandler(void *handler)
+{ 
+    SENAL2_SetInterruptHandler(handler);
+}
+
 /* Interrupt service routine for the CNEI interrupt. */
 void __attribute__ (( interrupt, no_auto_psv )) _CNEInterrupt ( void )
 {
     if(IFS4bits.CNEIF == 1)
     {
+        if(CNFEbits.CNFE7 == 1)
+        {
+            if(SENAL1_InterruptHandler) 
+            { 
+                SENAL1_InterruptHandler(); 
+            }
+            
+            CNFEbits.CNFE7 = 0;  //Clear flag for Pin - RE7
+
+        }
+        
         if(CNFEbits.CNFE9 == 1)
         {
             if(DUTY_InterruptHandler) 
@@ -179,6 +216,17 @@ void __attribute__ (( interrupt, no_auto_psv )) _CNEInterrupt ( void )
             }
             
             CNFEbits.CNFE9 = 0;  //Clear flag for Pin - RE9
+
+        }
+        
+        if(CNFEbits.CNFE8 == 1)
+        {
+            if(SENAL2_InterruptHandler) 
+            { 
+                SENAL2_InterruptHandler(); 
+            }
+        
+            CNFEbits.CNFE8 = 0;  //Clear flag for Pin - RE8
 
         }
         

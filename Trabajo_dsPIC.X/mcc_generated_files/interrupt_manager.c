@@ -52,7 +52,28 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    CCPI: CCP1 Capture/Compare Event
+    //    Priority: 5
+        IPC1bits.CCP1IP = 5;
     //    CNEI: Change Notification E
     //    Priority: 6
         IPC19bits.CNEIP = 6;
+    //    ADCAN19: ADC AN19 Convert Done
+    //    Priority: 1
+        IPC27bits.ADCAN19IP = 1;
+    //    ADCAN18: ADC AN18 Convert Done
+    //    Priority: 1
+        IPC27bits.ADCAN18IP = 1;
+    //    ADCAN17: ADC AN17 Convert Done
+    //    Priority: 1
+        IPC27bits.ADCAN17IP = 1;
+    //    ADCAN16: ADC AN16 Convert Done
+    //    Priority: 1
+        IPC26bits.ADCAN16IP = 1;
+    //    ADCAN20: ADC AN20 Convert Done
+    //    Priority: 1
+        IPC27bits.ADCAN20IP = 1;
+    //    TI: Timer 1
+    //    Priority: 5
+        IPC0bits.T1IP = 5;
 }

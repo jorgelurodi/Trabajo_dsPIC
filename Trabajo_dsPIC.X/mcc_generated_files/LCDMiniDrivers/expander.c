@@ -31,13 +31,13 @@
 
 void expander_sendByte(uint8_t addr, uint8_t byte){
     spi_master_open(LCD);
-    LATDbits.LATD3 = 0; /* set LCDMini_nCS output low */
+    LATCbits.LATC7 = 0; /* set LCDMini_nCS output low */
     uint8_t cmd[3];
     cmd[0] = WRITE_BYTE;
     cmd[1] = addr;
     cmd[2] = byte;
     spi1_writeBlock(cmd, 3);
-    LATDbits.LATD3 = 1; /* set LCDMini_nCS output high */
+    LATCbits.LATC7 = 1; /* set LCDMini_nCS output high */
     spi1_close();
 }
 
