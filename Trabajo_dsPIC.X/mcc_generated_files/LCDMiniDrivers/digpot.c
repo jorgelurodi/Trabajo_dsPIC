@@ -28,11 +28,11 @@
 
 void digipot_setWiper(uint8_t val){
     spi_master_open(LCD);
-    LATDbits.LATD3 = 0; /* set LCDMini_nCS2 output low */
+    LATCbits.LATC7 = 0; /* set LCDMini_nCS2 output low */
     uint8_t cmd[2];
     cmd[0] = 0;
     cmd[1] = val;
     spi1_writeBlock(cmd, 2);
-    LATDbits.LATD3 = 1; /* set LCDMini_nCS2 output high */
+    LATCbits.LATC7 = 1; /* set LCDMini_nCS2 output high */
     spi1_close();
 }

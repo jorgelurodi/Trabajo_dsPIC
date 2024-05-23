@@ -230,19 +230,19 @@ void SCCP1_COMPARE_Stop( void );
     SCCP1_COMPARE_Initializer function should have been called 
 
   @Param
-    value - 32 bit primary compare value.
+    value - 16 bit primary compare value.
 
   @Returns
     None.
 
   @Example 
     <code>
-        uint32_t value = 0x100000;
+        uint16_t value = 0x1000;
         SCCP1_COMPARE_SingleCompareValueSet( value );
     <code>
 	
 */
-void SCCP1_COMPARE_SingleCompare32ValueSet( uint32_t value );
+void SCCP1_COMPARE_SingleCompare16ValueSet( uint16_t value );
 
 /**
   @Summary

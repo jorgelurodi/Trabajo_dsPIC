@@ -2,55 +2,36 @@
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/LCDMiniDrivers/lcd.h"
 #include "mcc_generated_files/adc1.h"
-//#include "Func.h"
-//#include "dsp.h"
+#include "Func.h"
+#include "dsp.h"
 #include "math.h"
+#include <stdio.h>
+
 #define ROW_LEN 16
 #define  NUM_SAMPLES 256
 
-//uint16_t freca,frecb,frecc,fs;
-
-int conversion_senoidal,conversion_triangular;
+int16_t conversion_senoidal,conversion_triangular;
+int cuenta,i=0;
 float volt_senoidal,volt_triangular=0.0;
 
-uint16_t sample_count_senoidal, sample_count_triangular = 0; // Contador para el índice de la muestra a almacenar
+uint16_t sample_count_senoidal  = 0; 
+uint16_t sample_count_triangular = 0; // Contador para el índice de la muestra a almacenar
 
-/*
-float sinA[NUM_SAMPLES];
-float sinB[NUM_SAMPLES];
-float sinC[NUM_SAMPLES];
-*/
+//Señales de entrada a pasar por el filtro
 float samples_triangular[NUM_SAMPLES];
 float samples_senoidal[NUM_SAMPLES];
 
 
 float valor_medio_triangular,valor_medio_senoidal,valor_pico_triangular,valor_pico_senoidal,valor_rms_triangular,valor_rms_senoidal;
 
-//fractional entrada[NUM_SAMPLES]; //Buffer entrada
-//fractional filtrada[NUM_SAMPLES]; //Buffer salida
 
-/*
-void generaonda(void)
-{
-    uint16_t n = 0;
- 
-    fs = 10000;    // Frecuencia de Muestreo de 10 KHz
-    freca   = 	720;    // Senoide de 720 Hz 
-    frecb	=	367;    // Senoide de 367 Hz
-    frecc 	= 	123;    // Senoide de 123 Hz
-    for (n=0; n < NUM_SAMPLES; n++)
-    {
-      sinA[n] = sin((2*PI*freca*n)/fs);            // Creamos una senoide por puntos de la frecuencia A
-      sinB[n] = sin((2*PI*frecb*n)/fs);            // Creamos una senoide por puntos de la frecuencia B
-      sinC[n] = sin((2*PI*frecc*n)/fs);            // Creamos una senoide por puntos de la frecuencia C
-      entrada[n] = ((sinA[n]+sinB[n]+sinC[n])/3)*0x8000;  // Escalamos el flotante a fraccional
-      
-    }
-    return;
-}   
-*/
+fractional entrada_triangular[NUM_SAMPLES]; //Buffer entrada
+fractional entrada_senoidal[NUM_SAMPLES]; //Buffer entrada
+fractional filtrada_triangular[NUM_SAMPLES]; //Buffer salida
+fractional filtrada_senoidal[NUM_SAMPLES]; //Buffer salida
 
-uint8_t row0_disp[ROW_LEN];    
+
+uint8_t row0_disp[ROW_LEN];  
 uint8_t row1_disp[ROW_LEN];
 
 uint8_t* Prow0 = &row0_disp;
@@ -59,16 +40,31 @@ uint8_t* Prow1 = &row1_disp;
 char fila0[ROW_LEN];
 char fila1[ROW_LEN];
 
+bool band_filtro=false;//por defecto comienza con filtro FIR
 
-/*
-void filtrar (void){
-    extern FIRStruct FPBFilter; //Filtro creado en archivo .s
-    FIRDelayInit (&FPBFilter); //Inicializamos el Filtro
-    FIR(NUM_SAMPLES, &filtrada[0], &entrada[0], &FPBFilter);
-return;
+void InitLCD()
+{
+    lcd_setup(); // INICIALIZA LCD
+    lcd_clearDisplay(); // BORRA LCD
 }
-*/
-int cuenta=0;
+
+void filtrar_FIR (void){
+    extern FIRStruct pasobanda_HammingFilter; //Filtro creado en archivo .s
+    FIRDelayInit (&pasobanda_HammingFilter); //Inicializamos el Filtro
+    FIR(NUM_SAMPLES, &filtrada_triangular[0], &entrada_triangular[0], &pasobanda_HammingFilter);
+    FIR(NUM_SAMPLES, &filtrada_senoidal[0], &entrada_senoidal[0], &pasobanda_HammingFilter);
+    return;
+}
+
+void filtrar_IIR(void) {
+    extern IIRTransposedStruct pasobanda_IIRFilter; // Filtro IIR creado en archivo .s
+    IIRTransposedInit(&pasobanda_IIRFilter); // Inicializamos el filtro IIR
+    // Aplicamos el filtro IIR a la señal triangular
+    IIRTransposed(NUM_SAMPLES, &filtrada_triangular[0], &entrada_triangular[0], &pasobanda_IIRFilter);
+    // Aplicamos el filtro IIR a la señal senoidal
+    IIRTransposed(NUM_SAMPLES, &filtrada_senoidal[0], &entrada_senoidal[0], &pasobanda_IIRFilter);
+    return;
+}
 
 float Valor_RMS(float* samples, int length) {
     if (length <= 0) {
@@ -114,79 +110,122 @@ float Valor_Pico(float* samples, int length) {
     return max_value; // Retornar el valor máximo absoluto
 }
 
-void __attribute__ ((weak)) TMR1_CallBack(void)//500ms 
-{
-    
-    //rutina de interrupción del tmr cada 500ms 
-    valor_medio_triangular = Valor_Medio(samples_triangular, NUM_SAMPLES);
-    valor_medio_senoidal = Valor_Medio(samples_senoidal, NUM_SAMPLES);
- 
-    valor_pico_triangular = Valor_Pico(samples_triangular, NUM_SAMPLES);
-    valor_pico_senoidal = Valor_Pico(samples_senoidal, NUM_SAMPLES);
 
-    valor_rms_triangular = Valor_RMS(samples_triangular, NUM_SAMPLES);
-    valor_rms_senoidal = Valor_RMS(samples_senoidal, NUM_SAMPLES);
+void Imprime_triangular(void){
     
+    InitLCD();
     
-
+    lcd_setContrast(0x20);
+    
+    sprintf(fila0, "V1:M=%.2f;m:%.2f ",valor_pico_triangular,valor_medio_triangular);
+    sprintf(fila1, "V1:rms=%.2fV",valor_rms_triangular);
+         
+    Prow0 = (uint8_t*) &fila0;
+    lcd_writeString(Prow0, 0);
+    
+    Prow1 = (uint8_t*) &fila1;
+    lcd_writeString(Prow1, 1);
+    
 }
 
+void Imprime_senoidal(void){
+    
+    InitLCD();
+    
+    lcd_setContrast(0x20);
+    
+    sprintf(fila0, "V2:M=%.2f;m:%.2f ",valor_pico_senoidal,valor_medio_senoidal);
+    sprintf(fila1, "V2:rms=%.2fV",valor_rms_senoidal);
+         
+    Prow0 = (uint8_t*) &fila0;
+    lcd_writeString(Prow0, 0);
+    
+    Prow1 = (uint8_t*) &fila1;
+    lcd_writeString(Prow1, 1);
+    
+}
 
 void __attribute__ ((weak)) SCCP1_COMPARE_CallBack(void)
 {
-    // Add your custom callback code here
+    // Configurar el CCP para disparar el ADC
+    // Asegurar previamente que la configuración esté hecha en la inicialización del sistema
     /* El SCCP1 se configura como:
-     * Modo 32 bits
-     * PRA = 0x0018 (100us)
-     * Single-edge, toggle (el toggle no tiene efecto, valdría cualquiera).
+     * Modo 16 bits
+     * PRA = 0x0000
+     * PRB = 0x0018 (100us)
+     * PRL = 0x0031 (200us)
+     * Double-edge,PWM
      * Output: special-event trigger (para que el conversor AD se lance).
-     * Interrupciones habilitadas    
+     * Interrupciones habilitadas  
      */
-    conversion_senoidal = ADC1_ConversionResultGet(senoidal);// Se lee el resultados del CAD
-    volt_senoidal = conversion_senoidal*(3.3/4096);                   // Se convierte a voltios
     
-    // Almacenar la muestra de la señal senoidal en el vector correspondiente
-    if (sample_count_senoidal < NUM_SAMPLES) {
-        samples_senoidal[sample_count_senoidal] = volt_senoidal;
-        sample_count_senoidal++; // Incrementar el contador de muestras
+    // Verificar y leer el resultado del ADC para la señal senoidal
+    if (ADC1_IsConversionComplete(senoidal)){
+        conversion_senoidal = ADC1_ConversionResultGet(senoidal);
+        volt_senoidal = conversion_senoidal * (3.3 / 4096); // Convertir a voltios
+
+        // Almacenar la muestra de la señal senoidal en el vector correspondiente
+        if (sample_count_senoidal < NUM_SAMPLES) {
+            samples_senoidal[sample_count_senoidal] = volt_senoidal;
+            entrada_senoidal[sample_count_senoidal] = conversion_senoidal * 0x0100; // Escalar a fraccional
+            sample_count_senoidal++; // Incrementar el contador de muestras
+        }
     }
     
-    // Las siguientes líneas resetean el CCP para una nueva comparación
-    CCP1CON1Lbits.CCPON = 0x0;
-    CCP1TMRL = 0x0000;
-    CCP1TMRH = 0x0000;
-    CCP1STATLbits.ASEVT = 0;
-    CCP1CON1Lbits.CCPON = 0x1;
-    
-    conversion_triangular = ADC1_ConversionResultGet(triangular);// Se lee el resultados del CAD
-    volt_triangular = conversion_triangular*(3.3/4096); // Se convierte a voltios
-    
-    // Almacenar la muestra de la señal triangular en el vector correspondiente
-    if (sample_count_triangular < NUM_SAMPLES) {
-        samples_triangular[sample_count_triangular] = volt_triangular;
-        sample_count_triangular++; // Incrementar el contador de muestras
+    valor_medio_senoidal = Valor_Medio(samples_senoidal, NUM_SAMPLES);
+    valor_pico_senoidal = Valor_Pico(samples_senoidal, NUM_SAMPLES);
+    valor_rms_senoidal = Valor_RMS(samples_senoidal, NUM_SAMPLES);
+        
+    // Verificar y leer el resultado del ADC para la señal triangular
+    if (ADC1_IsConversionComplete(triangular)){
+        conversion_triangular = ADC1_ConversionResultGet(triangular);
+        volt_triangular = conversion_triangular * (3.3 / 4096); // Convertir a voltios
+
+        // Almacenar la muestra de la señal triangular en el vector correspondiente
+        if (sample_count_triangular < NUM_SAMPLES) {
+            samples_triangular[sample_count_triangular] = volt_triangular;
+            entrada_triangular[sample_count_triangular] = conversion_triangular * 0x0100; // Escalar a fraccional
+            sample_count_triangular++; // Incrementar el contador de muestras
+        }
     }
     
-    // Las siguientes líneas resetean el CCP para una nueva comparación
-    CCP1CON1Lbits.CCPON = 0x0;
-    CCP1TMRL = 0x0000;
-    CCP1TMRH = 0x0000;
-    CCP1STATLbits.ASEVT = 0;
-    CCP1CON1Lbits.CCPON = 0x1;
+    valor_medio_triangular = Valor_Medio(samples_triangular, NUM_SAMPLES);
+    valor_pico_triangular = Valor_Pico(samples_triangular, NUM_SAMPLES);
+    valor_rms_triangular = Valor_RMS(samples_triangular, NUM_SAMPLES);
+    
+    if(!band_filtro){//pasa vector de muestras al filtro seleccionado
+        filtrar_FIR();
+    }
+    else{
+        filtrar_IIR();
+    }
+          
 }
-
-void __attribute__ ((weak)) SENAL1_CallBack(void)//RE7 triangular
+       
+void __attribute__ ((weak)) TRIANGULAR_CallBack(void)//RE7 muestra triangular
 {
-    sprintf(fila0,"M",valor_pico_triangular);
-
+    LED1_Toggle();
+    
+    if(band_filtro==true){
+        band_filtro=false;//cambia a filtro FIR
+    }
+    
+    
+   Imprime_triangular();
 }
 
-void __attribute__ ((weak)) SENAL2_CallBack(void)//RE8 senoidal
-{
+void __attribute__ ((weak)) SENOIDAL_CallBack(void){//RE8 muestra senoidal
+    
+    LED1_Toggle();
+    
+    if(band_filtro==false){
+      //band_filtro=true;//cambia a filtro IIR
+    }
 
+    Imprime_senoidal();
 }
 
-void __attribute__ ((weak)) DUTY_CallBack(void)
+void __attribute__ ((weak)) DUTY_CallBack(void)//RE9 cambia ciclo de trabajo de la PWM
 {
     LED1_Toggle(); // Toggle LED
     PG2CONLbits.ON=0;//deshabilitar para actualizar el ciclo de trabajao 
@@ -231,31 +270,23 @@ void __attribute__ ((weak)) DUTY_CallBack(void)
     PG2CONLbits.ON=1;//volver a habilitar el módulo
 }
 
+
 int main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
     
-    //generaonda();//genera en el buffer de entrada una mezcla de las señales de entrada
-    //filtrar();
-    
-    Prow0 = (uint8_t*) &fila0;
-    Prow1 = (uint8_t*) &fila1;
-    
-    lcd_setContrast(0x20);
-    lcd_clearDisplay(); // BORRA LCD
     
      // Es necesario habilitar el CAD y seleccionar el canal
-   ADC1_Enable();
-   ADC1_ChannelSelect(triangular);
-   ADC1_ChannelSelect(senoidal);
+    ADC1_Initialize();
+    ADC1_Enable();
+    ADC1_ChannelSelect(triangular);
+    ADC1_ChannelSelect(senoidal);
+   
   
     while (1)
     {
-        
-   //  lcd_writeString(Prow0, 0);
-   
-        
+ 
     }
     return 1; 
     

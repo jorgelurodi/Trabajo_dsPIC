@@ -186,8 +186,8 @@ void ADC1_Initialize (void)
     // Enabling Power for the Shared Core
     ADC1_SharedCorePowerEnable();
 
-    //TRGSRC0 Master SCCP1 PWM Interrupt; TRGSRC1 Master SCCP1 PWM Interrupt; 
-    ADTRIG0L = 0x1414;
+    //TRGSRC0 None; TRGSRC1 None; 
+    ADTRIG0L = 0x00;
     //TRGSRC3 None; TRGSRC2 None; 
     ADTRIG0H = 0x00;
     //TRGSRC4 None; TRGSRC5 None; 
@@ -198,10 +198,10 @@ void ADC1_Initialize (void)
     ADTRIG2L = 0x00;
     //TRGSRC11 None; TRGSRC10 None; 
     ADTRIG2H = 0x00;
-    //TRGSRC13 None; TRGSRC12 None; 
-    ADTRIG3L = 0x00;
-    //TRGSRC15 None; TRGSRC14 None; 
-    ADTRIG3H = 0x00;
+    //TRGSRC13 Master SCCP1 PWM Interrupt; TRGSRC12 None; 
+    ADTRIG3L = 0x1400;
+    //TRGSRC15 None; TRGSRC14 Master SCCP1 PWM Interrupt; 
+    ADTRIG3H = 0x14;
     //TRGSRC17 Common Software Trigger; TRGSRC16 Common Software Trigger; 
     ADTRIG4L = 0x101;
     //TRGSRC19 Common Software Trigger; TRGSRC18 Common Software Trigger; 
@@ -256,10 +256,10 @@ void __attribute__ ((weak)) ADC1_triangular_Tasks ( void )
 {
     uint16_t valtriangular;
 
-    if(ADSTATLbits.AN0RDY)
+    if(ADSTATLbits.AN13RDY)
     {
         //Read the ADC value from the ADCBUF
-        valtriangular = ADCBUF0;
+        valtriangular = ADCBUF13;
 
         if(ADC1_triangularDefaultInterruptHandler) 
         { 
@@ -282,10 +282,10 @@ void __attribute__ ((weak)) ADC1_senoidal_Tasks ( void )
 {
     uint16_t valsenoidal;
 
-    if(ADSTATLbits.AN1RDY)
+    if(ADSTATLbits.AN14RDY)
     {
         //Read the ADC value from the ADCBUF
-        valsenoidal = ADCBUF1;
+        valsenoidal = ADCBUF14;
 
         if(ADC1_senoidalDefaultInterruptHandler) 
         { 

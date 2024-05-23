@@ -56,9 +56,9 @@
 /**
  Section: File specific functions
 */
-void (*SENAL1_InterruptHandler)(void) = NULL;
+void (*TRIANGULAR_InterruptHandler)(void) = NULL;
 void (*DUTY_InterruptHandler)(void) = NULL;
-void (*SENAL2_InterruptHandler)(void) = NULL;
+void (*SENOIDAL_InterruptHandler)(void) = NULL;
 
 /**
  Section: Driver Interface Function Definitions
@@ -81,14 +81,14 @@ void PIN_MANAGER_Initialize (void)
     TRISB = 0xCBFD;
     TRISC = 0xFF77;
     TRISD = 0xFFE7;
-    TRISE = 0xFFFE;
+    TRISE = 0xFFFC;
 
     /****************************************************************************
      * Setting the Weak Pull Up and Weak Pull Down SFR(s)
      ***************************************************************************/
     CNPDA = 0x0000;
     CNPDB = 0x0000;
-    CNPDC = 0x0004;
+    CNPDC = 0x0000;
     CNPDD = 0x0000;
     CNPDE = 0x0000;
     CNPUA = 0x0000;
@@ -120,9 +120,9 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_RPCON(0x0000); // unlock PPS
 
-    RPOR5bits.RP42R = 0x0006;    //RB10->SPI1:SCK1
     RPINR20bits.SDI1R = 0x0046;    //RD6->SPI1:SDI1
     RPOR9bits.RP51R = 0x0005;    //RC3->SPI1:SDO1
+    RPOR5bits.RP42R = 0x0006;    //RB10->SPI1:SCK1
 
     __builtin_write_RPCON(0x0800); // lock PPS
     
@@ -145,9 +145,9 @@ void PIN_MANAGER_Initialize (void)
     CNCONEbits.ON = 1;    //Config for PORTE
     
     /* Initialize IOC Interrupt Handler*/
-    SENAL1_SetInterruptHandler(&SENAL1_CallBack);
+    TRIANGULAR_SetInterruptHandler(&TRIANGULAR_CallBack);
     DUTY_SetInterruptHandler(&DUTY_CallBack);
-    SENAL2_SetInterruptHandler(&SENAL2_CallBack);
+    SENOIDAL_SetInterruptHandler(&SENOIDAL_CallBack);
     
     /****************************************************************************
      * Interrupt On Change: Interrupt Enable
@@ -156,16 +156,16 @@ void PIN_MANAGER_Initialize (void)
     IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
 
-void SENAL1_SetInterruptHandler(void (* InterruptHandler)(void))
+void TRIANGULAR_SetInterruptHandler(void (* InterruptHandler)(void))
 { 
     IEC4bits.CNEIE = 0; //Disable CNEI interrupt
-    SENAL1_InterruptHandler = InterruptHandler; 
+    TRIANGULAR_InterruptHandler = InterruptHandler; 
     IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
 
-void SENAL1_SetIOCInterruptHandler(void *handler)
+void TRIANGULAR_SetIOCInterruptHandler(void *handler)
 { 
-    SENAL1_SetInterruptHandler(handler);
+    TRIANGULAR_SetInterruptHandler(handler);
 }
 
 void DUTY_SetInterruptHandler(void (* InterruptHandler)(void))
@@ -180,16 +180,16 @@ void DUTY_SetIOCInterruptHandler(void *handler)
     DUTY_SetInterruptHandler(handler);
 }
 
-void SENAL2_SetInterruptHandler(void (* InterruptHandler)(void))
+void SENOIDAL_SetInterruptHandler(void (* InterruptHandler)(void))
 { 
     IEC4bits.CNEIE = 0; //Disable CNEI interrupt
-    SENAL2_InterruptHandler = InterruptHandler; 
+    SENOIDAL_InterruptHandler = InterruptHandler; 
     IEC4bits.CNEIE = 1; //Enable CNEI interrupt
 }
 
-void SENAL2_SetIOCInterruptHandler(void *handler)
+void SENOIDAL_SetIOCInterruptHandler(void *handler)
 { 
-    SENAL2_SetInterruptHandler(handler);
+    SENOIDAL_SetInterruptHandler(handler);
 }
 
 /* Interrupt service routine for the CNEI interrupt. */
@@ -199,9 +199,9 @@ void __attribute__ (( interrupt, no_auto_psv )) _CNEInterrupt ( void )
     {
         if(CNFEbits.CNFE7 == 1)
         {
-            if(SENAL1_InterruptHandler) 
+            if(TRIANGULAR_InterruptHandler) 
             { 
-                SENAL1_InterruptHandler(); 
+                TRIANGULAR_InterruptHandler(); 
             }
             
             CNFEbits.CNFE7 = 0;  //Clear flag for Pin - RE7
@@ -221,11 +221,11 @@ void __attribute__ (( interrupt, no_auto_psv )) _CNEInterrupt ( void )
         
         if(CNFEbits.CNFE8 == 1)
         {
-            if(SENAL2_InterruptHandler) 
+            if(SENOIDAL_InterruptHandler) 
             { 
-                SENAL2_InterruptHandler(); 
+                SENOIDAL_InterruptHandler(); 
             }
-        
+            
             CNFEbits.CNFE8 = 0;  //Clear flag for Pin - RE8
 
         }
