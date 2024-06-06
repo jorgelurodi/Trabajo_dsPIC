@@ -56,6 +56,298 @@
 */
 /**
   @Summary
+    Sets the GPIO pin, RA0, high using LATA0.
+
+  @Description
+    Sets the GPIO pin, RA0, high using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA0 high (1)
+    triangular_SetHigh();
+    </code>
+
+*/
+#define triangular_SetHigh()          (_LATA0 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RA0, low using LATA0.
+
+  @Description
+    Sets the GPIO pin, RA0, low using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA0 low (0)
+    triangular_SetLow();
+    </code>
+
+*/
+#define triangular_SetLow()           (_LATA0 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RA0, using LATA0.
+
+  @Description
+    Toggles the GPIO pin, RA0, using LATA0.
+
+  @Preconditions
+    The RA0 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA0
+    triangular_Toggle();
+    </code>
+
+*/
+#define triangular_Toggle()           (_LATA0 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA0.
+
+  @Description
+    Reads the value of the GPIO pin, RA0.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA0
+    postValue = triangular_GetValue();
+    </code>
+
+*/
+#define triangular_GetValue()         _RA0
+/**
+  @Summary
+    Configures the GPIO pin, RA0, as an input.
+
+  @Description
+    Configures the GPIO pin, RA0, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA0 as an input
+    triangular_SetDigitalInput();
+    </code>
+
+*/
+#define triangular_SetDigitalInput()  (_TRISA0 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RA0, as an output.
+
+  @Description
+    Configures the GPIO pin, RA0, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA0 as an output
+    triangular_SetDigitalOutput();
+    </code>
+
+*/
+#define triangular_SetDigitalOutput() (_TRISA0 = 0)
+/**
+  @Summary
+    Sets the GPIO pin, RA1, high using LATA1.
+
+  @Description
+    Sets the GPIO pin, RA1, high using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA1 high (1)
+    senoidal_SetHigh();
+    </code>
+
+*/
+#define senoidal_SetHigh()          (_LATA1 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RA1, low using LATA1.
+
+  @Description
+    Sets the GPIO pin, RA1, low using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA1 low (0)
+    senoidal_SetLow();
+    </code>
+
+*/
+#define senoidal_SetLow()           (_LATA1 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RA1, using LATA1.
+
+  @Description
+    Toggles the GPIO pin, RA1, using LATA1.
+
+  @Preconditions
+    The RA1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA1
+    senoidal_Toggle();
+    </code>
+
+*/
+#define senoidal_Toggle()           (_LATA1 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA1.
+
+  @Description
+    Reads the value of the GPIO pin, RA1.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA1
+    postValue = senoidal_GetValue();
+    </code>
+
+*/
+#define senoidal_GetValue()         _RA1
+/**
+  @Summary
+    Configures the GPIO pin, RA1, as an input.
+
+  @Description
+    Configures the GPIO pin, RA1, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA1 as an input
+    senoidal_SetDigitalInput();
+    </code>
+
+*/
+#define senoidal_SetDigitalInput()  (_TRISA1 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RA1, as an output.
+
+  @Description
+    Configures the GPIO pin, RA1, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA1 as an output
+    senoidal_SetDigitalOutput();
+    </code>
+
+*/
+#define senoidal_SetDigitalOutput() (_TRISA1 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RB10, high using LATB10.
 
   @Description
@@ -200,298 +492,6 @@
 
 */
 #define SCK1_SetDigitalOutput() (_TRISB10 = 0)
-/**
-  @Summary
-    Sets the GPIO pin, RC1, high using LATC1.
-
-  @Description
-    Sets the GPIO pin, RC1, high using LATC1.
-
-  @Preconditions
-    The RC1 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RC1 high (1)
-    triangular_SetHigh();
-    </code>
-
-*/
-#define triangular_SetHigh()          (_LATC1 = 1)
-/**
-  @Summary
-    Sets the GPIO pin, RC1, low using LATC1.
-
-  @Description
-    Sets the GPIO pin, RC1, low using LATC1.
-
-  @Preconditions
-    The RC1 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RC1 low (0)
-    triangular_SetLow();
-    </code>
-
-*/
-#define triangular_SetLow()           (_LATC1 = 0)
-/**
-  @Summary
-    Toggles the GPIO pin, RC1, using LATC1.
-
-  @Description
-    Toggles the GPIO pin, RC1, using LATC1.
-
-  @Preconditions
-    The RC1 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RC1
-    triangular_Toggle();
-    </code>
-
-*/
-#define triangular_Toggle()           (_LATC1 ^= 1)
-/**
-  @Summary
-    Reads the value of the GPIO pin, RC1.
-
-  @Description
-    Reads the value of the GPIO pin, RC1.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RC1
-    postValue = triangular_GetValue();
-    </code>
-
-*/
-#define triangular_GetValue()         _RC1
-/**
-  @Summary
-    Configures the GPIO pin, RC1, as an input.
-
-  @Description
-    Configures the GPIO pin, RC1, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RC1 as an input
-    triangular_SetDigitalInput();
-    </code>
-
-*/
-#define triangular_SetDigitalInput()  (_TRISC1 = 1)
-/**
-  @Summary
-    Configures the GPIO pin, RC1, as an output.
-
-  @Description
-    Configures the GPIO pin, RC1, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RC1 as an output
-    triangular_SetDigitalOutput();
-    </code>
-
-*/
-#define triangular_SetDigitalOutput() (_TRISC1 = 0)
-/**
-  @Summary
-    Sets the GPIO pin, RC2, high using LATC2.
-
-  @Description
-    Sets the GPIO pin, RC2, high using LATC2.
-
-  @Preconditions
-    The RC2 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RC2 high (1)
-    senoidal_SetHigh();
-    </code>
-
-*/
-#define senoidal_SetHigh()          (_LATC2 = 1)
-/**
-  @Summary
-    Sets the GPIO pin, RC2, low using LATC2.
-
-  @Description
-    Sets the GPIO pin, RC2, low using LATC2.
-
-  @Preconditions
-    The RC2 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RC2 low (0)
-    senoidal_SetLow();
-    </code>
-
-*/
-#define senoidal_SetLow()           (_LATC2 = 0)
-/**
-  @Summary
-    Toggles the GPIO pin, RC2, using LATC2.
-
-  @Description
-    Toggles the GPIO pin, RC2, using LATC2.
-
-  @Preconditions
-    The RC2 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RC2
-    senoidal_Toggle();
-    </code>
-
-*/
-#define senoidal_Toggle()           (_LATC2 ^= 1)
-/**
-  @Summary
-    Reads the value of the GPIO pin, RC2.
-
-  @Description
-    Reads the value of the GPIO pin, RC2.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RC2
-    postValue = senoidal_GetValue();
-    </code>
-
-*/
-#define senoidal_GetValue()         _RC2
-/**
-  @Summary
-    Configures the GPIO pin, RC2, as an input.
-
-  @Description
-    Configures the GPIO pin, RC2, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RC2 as an input
-    senoidal_SetDigitalInput();
-    </code>
-
-*/
-#define senoidal_SetDigitalInput()  (_TRISC2 = 1)
-/**
-  @Summary
-    Configures the GPIO pin, RC2, as an output.
-
-  @Description
-    Configures the GPIO pin, RC2, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RC2 as an output
-    senoidal_SetDigitalOutput();
-    </code>
-
-*/
-#define senoidal_SetDigitalOutput() (_TRISC2 = 0)
 /**
   @Summary
     Sets the GPIO pin, RC3, high using LATC3.

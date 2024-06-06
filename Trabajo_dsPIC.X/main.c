@@ -152,8 +152,8 @@ void __attribute__ ((weak)) SCCP1_COMPARE_CallBack(void)
     /* El SCCP1 se configura como:
      * Modo 16 bits
      * PRA = 0x0000
-     * PRB = 0x0018 (100us)
-     * PRL = 0x0031 (200us)
+     * PRB = 0x009F 
+     * PRL = 0x013F (79.82us)
      * Double-edge,PWM
      * Output: special-event trigger (para que el conversor AD se lance).
      * Interrupciones habilitadas  
@@ -206,12 +206,12 @@ void __attribute__ ((weak)) TRIANGULAR_CallBack(void)//RE7 muestra triangular
 {
     LED1_Toggle();
     
-    if(band_filtro==true){
+    if(band_filtro==true){    
         band_filtro=false;//cambia a filtro FIR
-    }
+    }    
     
     
-   Imprime_triangular();
+   Imprime_triangular();    
 }
 
 void __attribute__ ((weak)) SENOIDAL_CallBack(void){//RE8 muestra senoidal

@@ -202,17 +202,17 @@
 #include "clock.h"
 #include "system.h"
 #include "system_types.h"
-#include "delay.h"
-#include "sccp1_compare.h"
+#include "pwm.h"
 #include "drivers/spi_master.h"
-#include "adc1.h"
-#include "interrupt_manager.h"
-#include "traps.h"
+#include "spi1_driver.h"
+#include "sccp1_compare.h"
+#include "delay.h"
 #include "LCDMiniDrivers/lcd.h"
 #include "LCDMiniDrivers/digipot.h"
 #include "LCDMiniDrivers/expander.h"
-#include "spi1_driver.h"
-#include "pwm.h"
+#include "adc1.h"
+#include "interrupt_manager.h"
+#include "traps.h"
 
 void SYSTEM_Initialize(void)
 {
@@ -221,8 +221,8 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     SCCP1_COMPARE_Initialize();
     ADC1_Initialize();
-    lcd_setup();
     PWM_Initialize();
+    lcd_setup();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
 }

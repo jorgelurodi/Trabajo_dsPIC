@@ -90,8 +90,8 @@
  */
 typedef enum 
 {
-    triangular,//Channel Name:AN13   Assigned to:Shared Channel
-    senoidal,//Channel Name:AN14   Assigned to:Shared Channel
+    triangular,//Channel Name:AN0   Assigned to:Shared Channel
+    senoidal,//Channel Name:AN1   Assigned to:Shared Channel
     channel_AN16,//Channel Name:AN16   Assigned to:Shared Channel
     channel_AN17,//Channel Name:AN17   Assigned to:Shared Channel
     channel_AN18,//Channel Name:AN18   Assigned to:Shared Channel
@@ -388,10 +388,10 @@ inline static uint16_t ADC1_ConversionResultGet( ADC1_CHANNEL channel )
     switch(channel)
     {
         case triangular:
-                result = ADCBUF13;
+                result = ADCBUF0;
                 break;
         case senoidal:
-                result = ADCBUF14;
+                result = ADCBUF1;
                 break;
         case channel_AN16:
                 result = ADCBUF16;
@@ -458,10 +458,10 @@ inline static bool ADC1_IsConversionComplete(ADC1_CHANNEL channel)
     switch(channel)
     {
         case triangular:
-                status = ADSTATLbits.AN13RDY;
+                status = ADSTATLbits.AN0RDY;
                 break;
         case senoidal:
-                status = ADSTATLbits.AN14RDY;
+                status = ADSTATLbits.AN1RDY;
                 break;
         case channel_AN16:
                 status = ADSTATHbits.AN16RDY;
@@ -689,10 +689,10 @@ inline static void ADC1_IndividualChannelInterruptEnable(ADC1_CHANNEL channel)
     switch(channel)
     {
         case triangular:
-                IEC6bits.ADCAN13IE = 1;
+                IEC5bits.ADCAN0IE = 1;
                 break;
         case senoidal:
-                IEC6bits.ADCAN14IE = 1;
+                IEC5bits.ADCAN1IE = 1;
                 break;
         case channel_AN16:
                 IEC6bits.ADCAN16IE = 1;
@@ -741,10 +741,10 @@ inline static void ADC1_IndividualChannelInterruptDisable(ADC1_CHANNEL channel)
     switch(channel)
     {
         case triangular:
-                IEC6bits.ADCAN13IE = 0;
+                IEC5bits.ADCAN0IE = 0;
                 break;
         case senoidal:
-                IEC6bits.ADCAN14IE = 0;
+                IEC5bits.ADCAN1IE = 0;
                 break;
         case channel_AN16:
                 IEC6bits.ADCAN16IE = 0;
@@ -792,10 +792,10 @@ inline static void ADC1_IndividualChannelInterruptFlagClear(ADC1_CHANNEL channel
     switch(channel)
     {
         case triangular:
-                IFS6bits.ADCAN13IF = 0;
+                IFS5bits.ADCAN0IF = 0;
                 break;
         case senoidal:
-                IFS6bits.ADCAN14IF = 0;
+                IFS5bits.ADCAN1IF = 0;
                 break;
         case channel_AN16:
                 IFS6bits.ADCAN16IF = 0;
@@ -1357,18 +1357,18 @@ inline static void __attribute__((deprecated("\nThis will be removed in future M
 }
 /**
   @Summary
-    Returns the ADC1 conversion value for the shared core channel AN13
+    Returns the ADC1 conversion value for the shared core channel AN0
 
   @Description
-    This routine is used to get the analog to digital converted value for channel AN13. This
-    routine gets converted values from the shared core channel AN13.
+    This routine is used to get the analog to digital converted value for channel AN0. This
+    routine gets converted values from the shared core channel AN0.
  
   @Preconditions
     The shared core must be enabled and calibrated before calling this routine 
     using ADC1_SharedCorePowerEnable() and ADC1_SharedCoreCalibration() 
     respectively. This routine returns the conversion value only after the 
     conversion is complete. Completion status conversion can be checked using 
-    ADC1_IsSharedChannelAN13ConversionComplete() routine.
+    ADC1_IsSharedChannelAN0ConversionComplete() routine.
    
   @Returns
     Returns the buffer containing the conversion value.
@@ -1379,16 +1379,16 @@ inline static void __attribute__((deprecated("\nThis will be removed in future M
   @Example
     Refer to ADC1_Initialize(); for an example
  */
-inline static uint16_t __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_SharedChannelAN13ConversionResultGet(void) 
+inline static uint16_t __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_SharedChannelAN0ConversionResultGet(void) 
 {
-    return ADCBUF13;
+    return ADCBUF0;
 }
 /**
   @Summary
-    Returns the conversion status of shared channel AN13 selected for conversion
+    Returns the conversion status of shared channel AN0 selected for conversion
 
   @Description
-    This routine is used to return the conversion status of the shared channel AN13 
+    This routine is used to return the conversion status of the shared channel AN0 
     selected for conversion.
   
   @Preconditions
@@ -1396,7 +1396,7 @@ inline static uint16_t __attribute__((deprecated("\nThis will be removed in futu
     called before calling this function.
  
   @Returns
-    The value of the Channel AN13 Conversion register
+    The value of the Channel AN0 Conversion register
 
   @Param
     None
@@ -1406,24 +1406,24 @@ inline static uint16_t __attribute__((deprecated("\nThis will be removed in futu
  
 */
 
-inline static bool __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_IsSharedChannelAN13ConversionComplete(void)
+inline static bool __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_IsSharedChannelAN0ConversionComplete(void)
 {   
-    return ADSTATLbits.AN13RDY;
+    return ADSTATLbits.AN0RDY;
 }
 /**
   @Summary
-    Returns the ADC1 conversion value for the shared core channel AN14
+    Returns the ADC1 conversion value for the shared core channel AN1
 
   @Description
-    This routine is used to get the analog to digital converted value for channel AN14. This
-    routine gets converted values from the shared core channel AN14.
+    This routine is used to get the analog to digital converted value for channel AN1. This
+    routine gets converted values from the shared core channel AN1.
  
   @Preconditions
     The shared core must be enabled and calibrated before calling this routine 
     using ADC1_SharedCorePowerEnable() and ADC1_SharedCoreCalibration() 
     respectively. This routine returns the conversion value only after the 
     conversion is complete. Completion status conversion can be checked using 
-    ADC1_IsSharedChannelAN14ConversionComplete() routine.
+    ADC1_IsSharedChannelAN1ConversionComplete() routine.
    
   @Returns
     Returns the buffer containing the conversion value.
@@ -1434,16 +1434,16 @@ inline static bool __attribute__((deprecated("\nThis will be removed in future M
   @Example
     Refer to ADC1_Initialize(); for an example
  */
-inline static uint16_t __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_SharedChannelAN14ConversionResultGet(void) 
+inline static uint16_t __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_SharedChannelAN1ConversionResultGet(void) 
 {
-    return ADCBUF14;
+    return ADCBUF1;
 }
 /**
   @Summary
-    Returns the conversion status of shared channel AN14 selected for conversion
+    Returns the conversion status of shared channel AN1 selected for conversion
 
   @Description
-    This routine is used to return the conversion status of the shared channel AN14 
+    This routine is used to return the conversion status of the shared channel AN1 
     selected for conversion.
   
   @Preconditions
@@ -1451,7 +1451,7 @@ inline static uint16_t __attribute__((deprecated("\nThis will be removed in futu
     called before calling this function.
  
   @Returns
-    The value of the Channel AN14 Conversion register
+    The value of the Channel AN1 Conversion register
 
   @Param
     None
@@ -1461,9 +1461,9 @@ inline static uint16_t __attribute__((deprecated("\nThis will be removed in futu
  
 */
 
-inline static bool __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_IsSharedChannelAN14ConversionComplete(void)
+inline static bool __attribute__((deprecated("\nThis will be removed in future MCC releases."))) ADC1_IsSharedChannelAN1ConversionComplete(void)
 {   
-    return ADSTATLbits.AN14RDY;
+    return ADSTATLbits.AN1RDY;
 }
 
 #ifdef __cplusplus  // Provide C++ Compatibility
